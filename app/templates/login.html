@@ -29,6 +29,7 @@ function set_openid(openid, pr)
         {% endfor %}
     </p>
     <p>{{form.remember_me}} Remember Me</p>
-    <p><input type="submit" value="Sign In"></p>
+    <p><input type="submit" value="Sign In">
+        <a href="{{ url_for('register') }}"><button type="button">Register</button></a><p>
 </form>
 {% endblock %}

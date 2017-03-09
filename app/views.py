@@ -2,7 +2,7 @@ from flask import flash
 from flask import redirect
 from flask import render_template
 from app import app
-from .forms import LoginForm
+from .forms import RegisterForm, LoginForm
 
 from flask import session, url_for, request, g
 from flask_login import login_user, logout_user, current_user, login_required
@@ -28,6 +28,18 @@ def index():
                            title = 'Home',
                            user = user,
                            posts = posts)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        flash('You can now login.')
+        flash(form.username.data)
+        flash(form.password.data)
+        return redirect(url_for('login'))
+    return render_template('auth/register.html',
+                           title = 'Register',
+                           form = form)
 
 @app.route('/login', methods=['GET', 'POST'])
 @oid.loginhandler
