@@ -69,6 +69,22 @@ def logout():
     flash('You have been logged out.')
     return redirect(url_for('index'))
 
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username = username).first()
+    if user == None:
+        flash('User ' + username + ' not found.')
+        return redirect(url_for('index'))
+    posts = [
+        { 'author': user, 'body': 'Test post #1' },
+        { 'author': user, 'body': 'Test post #2' }
+    ]
+    return render_template('user.html',
+                           user = user,
+                           posts = posts)
+
+
 # @oid.after_login
 # def after_login(resp):
 #     if resp.email is None or resp.email == "":

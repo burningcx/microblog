@@ -1,6 +1,7 @@
 from app import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from hashlib import md5
 
 
 class User(UserMixin, db.Model):
@@ -24,6 +25,11 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):#__repr__ 方法告诉 Python 如何打印这个类的对象
         return '<User %r>' % (self.username)
+
+    def avatar(self, size):
+        m = md5()
+        m.update(self.email.encode(encoding='utf-8'))
+        return 'http://www.gravatar.com/avatar/' + m.hexdigest() + '?d=mm&s=' + str(size)
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
