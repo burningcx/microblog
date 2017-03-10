@@ -2,12 +2,13 @@ from flask import flash
 from flask import redirect
 from flask import render_template
 from app import app
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, EditForm
 
 from flask import session, url_for, request, g
 from flask_login import login_user, logout_user, current_user, login_required
 from app import db, lm #, oid
 from .models import User
+from datetime import datetime
 
 
 @lm.user_loader
@@ -84,6 +85,23 @@ def user(username):
                            user = user,
                            posts = posts)
 
+@app.route('/edit', methods=['GET', 'POST'])
+@login_required
+def edit():
+    form = EditForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.about_me = form.about_me.data
+        db.session.add(current_user)
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('edit'))
+    else:
+        form.username.data = current_user.username
+        form.about_me.data = current_user.about_me
+    return render_template('edit.html',
+                           form = form)
+
 
 # @oid.after_login
 # def after_login(resp):
@@ -105,6 +123,10 @@ def user(username):
 #     login_user(user, remember=remember_me)
 #     return redirect(request.args.get('next') or url_for('index'))
 #
-# @app.before_request
-# def before_request():
-#     g.user = current_user
+@app.before_request
+def before_request():
+    g.user = current_user
+    if g.user.is_authenticated:
+        g.user.last_seen = datetime.utcnow()
+        db.session.add(g.user)
+        db.session.commit()
