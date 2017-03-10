@@ -14,3 +14,11 @@ OPENID_PROVIDERS = [
     { 'name': 'AOL', 'url': 'http://www.flickr.com/<username>' },
     { 'name': 'MyOpenID', 'url': 'https://www.myopenid.com' }
 ]
+
+MAIL_SERVER = 'localhost'
+MAIL_PORT = 25
+MAIL_USERNAME = None
+MAIL_PASSWORD = None
+
+ADMINS = ['burningcx@gmail.com']
+
