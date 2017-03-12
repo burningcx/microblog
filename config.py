@@ -22,3 +22,5 @@ MAIL_PASSWORD = None
 
 ADMINS = ['burningcx@gmail.com']
 
+POSTS_PER_PAGE = 2
+

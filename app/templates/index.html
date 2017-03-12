@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block page_content %}
 <div class="page-header">
@@ -10,5 +11,29 @@
         Stranger
         {% endif %}
     </h1>
+</div>
+<!--<div class="col-md-4">-->
+<div>
+{{ wtf.quick_form(form) }}
+</div>
+<!--<div class="col-lg-12">-->
+<div>
+    {% for post in posts.items %}
+    <!--<p>-->
+        <!--{{post.author.username}} says: <b>{{post.body}}</b>-->
+    <!--</p>-->
+        {% include 'post.html' %}
+    {% endfor %}
+    {% if posts.has_prev %}
+    <a href="{{ url_for('index', page = posts.prev_num) }}"><< Newer posts</a>
+    {% else %}
+    << Newer posts
+    {% endif %}
+    |
+    {% if posts.has_next %}
+    <a href="{{ url_for('index', page = posts.next_num) }}">Older posts >></a>
+    {% else %}
+    Older posts >>
+    {% endif %}
 </div>
 {% endblock %}

@@ -17,3 +17,7 @@ class EditForm(FlaskForm):
     username = StringField('username', validators=[DataRequired()])
     about_me = TextAreaField('about_me', validators=[Length(min=0, max=140)])
     submit = SubmitField('Save Changes')
+
+class PostForm(FlaskForm):
+    post = StringField('Say something:', validators=[DataRequired()])
+    submit = SubmitField('Post!')
