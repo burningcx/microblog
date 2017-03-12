@@ -25,6 +25,7 @@ mail = Mail()
 moment = Moment()
 
 bootstrap.init_app(app)
+app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 mail.init_app(app)
 moment.init_app(app)
 # db.init_app(app)
