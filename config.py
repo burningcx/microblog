@@ -15,12 +15,21 @@ OPENID_PROVIDERS = [
     { 'name': 'MyOpenID', 'url': 'https://www.myopenid.com' }
 ]
 
-MAIL_SERVER = 'localhost'
+MAIL_SERVER = 'smtp.qq.com'
 MAIL_PORT = 25
-MAIL_USERNAME = None
-MAIL_PASSWORD = None
+MAIL_USE_TLS = True
+MAIL_USE_SSL = False
+MAIL_USERNAME = '765060869@qq.com'
+MAIL_PASSWORD = 'wuuzvetvkmtabaij'
+# MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+# MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
-ADMINS = ['burningcx@gmail.com']
+# MAIL_SERVER = 'localhost'
+# MAIL_PORT = 25
+# MAIL_USERNAME = None
+# MAIL_PASSWORD = None
+
+ADMINS = ['765060869@qq.com','765044760@qq.com']
 
 POSTS_PER_PAGE = 2
 
